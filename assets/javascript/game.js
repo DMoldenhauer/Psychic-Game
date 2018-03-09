@@ -43,81 +43,96 @@
 var winCount = 0;
 var lossCount = 0;
 var guessesLeft = 9;
-var randomLetter = "a";
-var computerLetter = generateRandomLetter()
-var userGuessed = "";
+// var randomLetter = "a";
+var computerLetter = generateRandomLetter();
+// var userGuessed = "";
+var userGuessedString = "";
 
 
 // FUNCTIONS
 // -------------------------------------------------------------
 // App randomly picks a letter
+
+
 function generateRandomLetter() {
+    
     var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var randomLetter = "a"
     randomLetter = computerChoices[Math.floor(Math.random()*(computerChoices.length))];
     return randomLetter;
+    //Test
+    // console.log ("generateRandomLetter ran");
+
 }
 
 //Compare user's guess to computer's letter
 function compareGuessToComputer() {
-    if (userGuessed===computerLetter) {
-        winCount= wincount++;
+    
+    //Test
+    // console.log ("it ran");
+    // console.log (computerLetter);
+    // console.log (userGuessed);
+    
+    if (userGuessed == computerLetter) {
+        
+        //Test
+        console.log ("if win ran");
+        winCount++;
+        alert("You won!");
         //test
-        alert("Wins: " + winCount);
-
+        // alert("Wins: " + winCount);
         document.getElementById("winCounter").innerHTML = winCount;
-        alert("You guessed correctly!");
         restart();
+        
 
-    } else if (guessesLeft>0) {
+    } else if (guessesLeft>=2) {
          //test
-         alert("test guesses left should drop ");
-
-        var userGuessed = UserGuessed + event.key + " ";
-        document.getElementById("userGuesses").innerHTML = userGuessed;
-        var guessesLeft = guessesLeft - 1;
+        //  console.log("test guesses left should drop ");
+        // console.log (event.key);
+        
+        userGuessedString = userGuessedString + userGuessed + " ";
+        document.getElementById("userGuesses").innerHTML = userGuessedString;
+        guessesLeft--;
         document.getElementById("guessCounter").innerHTML = guessesLeft;
 
     } else {
-        lossCount = lossCount +1;
+        lossCount++;
         //test
-        alert("Losses: " + lossCount);
-
-        document.getElementById("lossCounter").innerHTML = lossCount;
+        // alert("Losses: " + lossCount);
         alert("You lost!");
+        document.getElementById("lossCounter").innerHTML = lossCount;
         restart();
     }
 }
 // restart game
 function restart() {
-    guessesLeft = 9;
-    document.getElementById("guessCounter").innerHTML = guessesLeft;
+    // console.log (computerLetter);
+    // 
     generateRandomLetter();
-}
-
-
-// Testing
-
-console.log(computerLetter);
-
-function compareGuessToComputer() {
-
-
+    console.log ("restart letter is " + computerLetter);
+    guessesLeft = 9;
+    userGuessedString = " ";
+    document.getElementById("userGuesses").innerHTML = userGuessedString;
+    document.getElementById("guessCounter").innerHTML = guessesLeft;
+    
+    // Test
+    // console.log ("generateRadomLetter ran")
+     
 }
 
 // MAIN PROCESS
 // --------------------------------------------------------------
-
-// Restarts Game
-restart();
-
+console.log(computerLetter);
 //determine what the user guessed 
 document.onkeyup = function (event) {
-    var userGuessed = String.fromCharCode(event.keyCode).toLowerCase();
-    // return userGuessed;
+    userGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+    
+    //Test
+    // console.log (userGuessed);
+    
     compareGuessToComputer();
     // Testing
-    console.log(userGuessed);
-    console.log(guessesLeft);
+    // console.log(guessesLeft);
     
 }
 
